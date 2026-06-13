@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Summer Garden — A Field Guide to Growing Fruit & Vegetables</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --soil:      #2D1B0E;
+  --leaf:      #6B7F3E;
+  --sage:      #B7A98A;
+  --mint:      #F0E2C8;
+  --sun:       #E0A030;
+  --tomato:    #C1502E;
+  --cream:     #FBF3E7;
+  --parchment: #F2E2C8;
+  --text:      #2D1B0E;
+  --muted:     #7A6650;
+  --white:     #FFFDF9;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+/* ── NAV ── */
+.site-nav {
+  position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0.7rem 1.6rem; max-width: calc(100% - 2rem);
+  background: rgba(45,27,14,0.92); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px; box-shadow: 0 8px 28px rgba(45,27,14,0.25);
+}
+.site-nav .logo { font-family: 'Fraunces', serif; font-size: 0.95rem; font-style: italic; color: var(--sun); letter-spacing: 0.02em; white-space: nowrap; }
+.nav-links { display: flex; gap: 1.4rem; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { color: var(--mint); text-decoration: none; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; white-space: nowrap; }
+.nav-links a:hover { color: var(--sun); }
+
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 110;
+}
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--mint); transition: transform 0.25s, opacity 0.25s; border-radius: 2px; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #2D1B0E 0%, #5E3A1E 45%, #8A5A2A 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+}
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 80%, rgba(232,184,75,0.12) 0%, transparent 65%); }
+.hero-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.6rem, 7vw, 5.6rem); font-weight: 700; line-height: 1.08; color: var(--cream); max-width: 820px; }
+.hero h1 em { font-style: italic; color: var(--sun); }
+.hero-sub { margin-top: 1.5rem; font-size: 1.05rem; color: var(--mint); max-width: 540px; line-height: 1.75; font-weight: 300; }
+.hero-crops { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; }
+.crop-chip { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 100px; padding: 0.4rem 1rem; font-size: 0.85rem; color: var(--mint); }
+.scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--sage); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Space Mono', monospace; animation: bob 2s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+/* ── SHARED ── */
+.page-wrap { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 5.5rem 0; }
+.section-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; display: block; }
+.section-title { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 700; line-height: 1.15; color: var(--soil); max-width: 640px; margin-bottom: 1rem; }
+.section-title em { color: var(--leaf); font-style: italic; }
+.section-intro { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 660px; margin-bottom: 3rem; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ════════ LAYOUT SECTION ════════ */
+#layout { background: var(--soil); }
+#layout .section-label { color: var(--sage); }
+#layout .section-title { color: var(--cream); }
+#layout .section-intro { color: var(--mint); }
+
+.layout-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.layout-tab {
+  padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; color: var(--mint); font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.layout-tab:hover { border-color: var(--sun); color: var(--sun); }
+.layout-tab.active { background: var(--sun); border-color: var(--sun); color: var(--soil); font-weight: 600; }
+
+.layout-panel { display: none; }
+.layout-panel.active { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: start; }
+@media(max-width:820px){ .layout-panel.active { grid-template-columns: 1fr; } }
+
+.bed-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+.bed-title { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; color: var(--sun); margin-bottom: 0.3rem; }
+.bed-dims { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.2rem; }
+.garden-grid { display: grid; gap: 4px; width: 100%; max-width: 560px; }
+.garden-cell {
+  border-radius: 6px; aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  cursor: pointer; position: relative; transition: transform 0.15s, box-shadow 0.15s;
+}
+.garden-cell:hover { transform: scale(1.07); z-index: 2; box-shadow: 0 4px 16px rgba(0,0,0,0.4); outline: 2px solid rgba(255,255,255,0.5); }
+.garden-cell .cell-tip {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: #2D1B0E; color: var(--mint); font-size: 0.74rem; padding: 0.5rem 0.75rem;
+  border-radius: 8px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.1);
+  z-index: 10; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.garden-cell:hover .cell-tip { display: block; }
+.cell-tip strong { display: block; color: var(--sun); font-size: 0.78rem; margin-bottom: 0.1rem; }
+.compass { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem; }
+.compass-n { width: 24px; height: 24px; background: rgba(232,184,75,0.2); border: 1px solid var(--sun); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--sun); font-weight: 700; }
+.compass span { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--sage); letter-spacing: 0.1em; }
+
+.layout-legend h4, .layout-notes h4 { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin-bottom: 0.9rem; }
+.layout-legend { margin-bottom: 2rem; }
+.legend-item { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--mint); }
+.legend-swatch { width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; }
+.layout-note { display: flex; gap: 0.7rem; margin-bottom: 0.8rem; font-size: 0.85rem; color: var(--mint); line-height: 1.6; }
+.note-num { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--sun); flex-shrink: 0; margin-top: 0.15rem; }
+
+/* ════════ CROPS ════════ */
+.crop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.crop-card { background: var(--white); border-radius: 14px; border: 1.5px solid var(--parchment); padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+.crop-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(45,27,14,0.12); }
+.crop-card::after { content: attr(data-icon); position: absolute; right: 1rem; top: 1rem; font-size: 2.8rem; opacity: 0.16; }
+.crop-tag { display: inline-block; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Space Mono', monospace; background: var(--mint); color: var(--soil); border-radius: 100px; padding: 0.2rem 0.7rem; margin-bottom: 0.8rem; }
+.crop-card h3 { font-family: 'Fraunces', serif; font-size: 1.22rem; font-weight: 600; color: var(--soil); margin-bottom: 0.5rem; }
+.crop-card p { font-size: 0.89rem; color: var(--muted); line-height: 1.65; }
+.crop-detail { font-size: 0.83rem; color: var(--leaf); line-height: 1.6; margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--parchment); }
+.crop-stats { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; }
+.stat-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sage); }
+.stat-value { font-size: 0.85rem; font-weight: 600; color: var(--leaf); }
+
+/* ════════ SOIL SECTION ════════ */
+#soil { background: var(--cream); }
+.soil-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; }
+@media(max-width:820px){ .soil-grid { grid-template-columns: 1fr; } }
+.soil-types { display: grid; gap: 1rem; }
+.soil-type-card { background: var(--white); border-radius: 12px; padding: 1.2rem 1.4rem; border: 1.5px solid var(--parchment); display: flex; gap: 1rem; align-items: flex-start; }
+.soil-swatch { width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0; margin-top: 0.1rem; }
+.soil-type-card h4 { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--soil); margin-bottom: 0.3rem; }
+.soil-type-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+.compost-timeline { display: flex; flex-direction: column; }
+.compost-step { display: flex; gap: 1rem; }
+.compost-line { display: flex; flex-direction: column; align-items: center; }
+.compost-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--leaf); flex-shrink: 0; }
+.compost-connector { width: 2px; flex: 1; background: var(--parchment); margin: 4px 0; }
+.compost-body { padding-bottom: 1.6rem; }
+.compost-body strong { display: block; font-family: 'Fraunces', serif; font-size: 1.02rem; color: var(--soil); margin-bottom: 0.2rem; }
+.compost-body p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+.amend-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.amend-table th { text-align: left; font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sage); padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--parchment); }
+.amend-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid var(--parchment); line-height: 1.5; }
+.amend-table td:first-child { font-weight: 600; color: var(--soil); }
+
+/* ════════ CARE GUIDE ════════ */
+.care-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.care-card { padding: 2rem; border-radius: 14px; }
+.care-card.water { background: linear-gradient(135deg, #daf0f0 0%, #c2e8ea 100%); }
+.care-card.soil-care { background: linear-gradient(135deg, #f0e8d0 0%, #e8d8b0 100%); }
+.care-card.sun { background: linear-gradient(135deg, #fdf3d0 0%, #f8e690 100%); }
+.care-card.harvest { background: linear-gradient(135deg, #e0f0d8 0%, #c4e0b8 100%); }
+.care-icon { font-size: 2.1rem; margin-bottom: 0.8rem; }
+.care-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--soil); margin-bottom: 0.7rem; }
+.care-card ul { list-style: none; }
+.care-card li { font-size: 0.88rem; color: #2a3a28; line-height: 1.6; padding: 0.32rem 0 0.32rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); position: relative; }
+.care-card li::before { content: '→'; position: absolute; left: 0; color: var(--leaf); font-size: 0.75rem; top: 0.4rem; }
+.care-card li:last-child { border-bottom: none; }
+
+.water-signals { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+@media(max-width:600px){ .water-signals { grid-template-columns: 1fr; } }
+.signal-card { border-radius: 12px; padding: 1.4rem 1.6rem; }
+.signal-card.over { background: #e3eef7; }
+.signal-card.under { background: #f8ece0; }
+.signal-card h4 { font-family: 'Fraunces', serif; font-size: 1.02rem; margin-bottom: 0.7rem; color: var(--soil); }
+.signal-card ul { list-style: none; }
+.signal-card li { font-size: 0.85rem; color: var(--muted); padding: 0.25rem 0 0.25rem 1rem; position: relative; line-height: 1.5; }
+.signal-card li::before { content: '•'; position: absolute; left: 0; color: var(--leaf); }
+
+/* ════════ PESTS ════════ */
+.pest-section { background: var(--soil); }
+.pest-section .section-label { color: var(--sage); }
+.pest-section .section-title { color: var(--cream); }
+.pest-section .section-intro { color: var(--mint); }
+.pest-table { width: 100%; border-collapse: collapse; }
+.pest-table th { text-align: left; font-family: 'Space Mono', monospace; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.pest-table td { padding: 1rem; font-size: 0.88rem; color: var(--mint); border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; line-height: 1.6; }
+.pest-table tr:hover td { background: rgba(255,255,255,0.03); }
+.pest-name { font-weight: 600; color: var(--cream); display: block; }
+.pest-desc { font-size: 0.8rem; opacity: 0.75; }
+.severity { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 100px; font-family: 'Space Mono', monospace; font-size: 0.63rem; letter-spacing: 0.08em; font-weight: 500; }
+.sev-high { background: rgba(201,74,39,0.3); color: #ff9a7a; }
+.sev-med  { background: rgba(232,184,75,0.25); color: #f5cf6a; }
+.sev-low  { background: rgba(106,155,94,0.3); color: var(--mint); }
+
+/* ════════ COMPANIONS ════════ */
+.companion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+.companion-card { border-radius: 14px; border: 1.5px solid var(--parchment); padding: 1.5rem; background: var(--white); }
+.pairing { display: flex; align-items: center; gap: 0.6rem; font-family: 'Fraunces', serif; font-size: 1.08rem; font-weight: 700; color: var(--soil); margin-bottom: 0.6rem; }
+.pairing-plus { color: var(--leaf); font-size: 1rem; font-family: 'Space Mono', monospace; }
+.companion-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+.benefit-tag { display: inline-block; margin-top: 0.8rem; font-family: 'Space Mono', monospace; font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase; background: #e8f3e4; color: var(--leaf); padding: 0.2rem 0.65rem; border-radius: 100px; }
+
+.three-sisters { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
+@media(max-width:700px){ .three-sisters { grid-template-columns: 1fr; gap: 2rem; } }
+.sisters-visual { background: linear-gradient(135deg, #5E3A1E 0%, #C1502E 100%); border-radius: 20px; padding: 2.6rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.sisters-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 120%, rgba(232,184,75,0.15), transparent 60%); }
+.sisters-icons { font-size: 3.2rem; display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.2rem; }
+.sisters-visual h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-style: italic; color: var(--sun); margin-bottom: 0.5rem; }
+.sisters-visual p { color: var(--mint); font-size: 0.88rem; line-height: 1.7; max-width: 320px; margin: 0 auto; }
+.sisters-list { list-style: none; }
+.sisters-list li { padding: 0.9rem 0; border-bottom: 1px solid var(--parchment); font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+.sisters-list li:last-child { border-bottom: none; }
+.sisters-list strong { color: var(--leaf); font-weight: 600; display: block; margin-bottom: 0.15rem; }
+
+/* ════════ CALENDAR ════════ */
+.calendar-section { background: var(--parchment); }
+.month-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.month-card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(47,96,39,0.12); }
+.month-header { background: var(--leaf); color: var(--cream); padding: 0.9rem 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+.month-header.alt { background: var(--sage); }
+.month-header h3 { font-family: 'Fraunces', serif; font-size: 1.08rem; font-weight: 700; }
+.month-header span { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--mint); }
+.month-body { padding: 1.2rem; }
+.month-task { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); padding: 0.35rem 0; border-bottom: 1px solid var(--parchment); line-height: 1.5; }
+.month-task:last-child { border-bottom: none; }
+.task-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sun); flex-shrink: 0; margin-top: 0.5rem; }
+.task-dot.red { background: var(--tomato); }
+.task-dot.green { background: var(--sage); }
+
+/* ════════ TROUBLESHOOTING ════════ */
+.trouble-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+.trouble-card { background: var(--white); border: 1.5px solid var(--parchment); border-radius: 14px; padding: 1.5rem; }
+.trouble-q { font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 700; color: var(--tomato); margin-bottom: 0.5rem; display: flex; gap: 0.5rem; }
+.trouble-a { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+.trouble-a strong { color: var(--leaf); }
+
+/* ════════ GEAR / RECOMMENDATIONS ════════ */
+#gear { background: var(--soil); }
+#gear .section-label { color: var(--sage); }
+#gear .section-title { color: var(--cream); }
+#gear .section-intro { color: var(--mint); }
+
+.gear-tier-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--sun); margin: 2.2rem 0 1rem; display: block; }
+.gear-tier-label:first-of-type { margin-top: 0; }
+
+.gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.gear-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 1.4rem; position: relative; transition: transform 0.2s, border-color 0.2s;
+}
+.gear-card:hover { transform: translateY(-3px); border-color: var(--sun); }
+.gear-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.gear-card h4 { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--cream); margin-bottom: 0.4rem; }
+.gear-card p { font-size: 0.85rem; color: var(--mint); line-height: 1.6; margin-bottom: 0.7rem; }
+.gear-why { font-size: 0.78rem; color: var(--sage); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.6rem; line-height: 1.55; }
+.gear-why strong { color: var(--sun); font-weight: 600; }
+.gear-priority { position: absolute; top: 1.2rem; right: 1.2rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 100px; }
+.priority-must { background: rgba(232,184,75,0.2); color: var(--sun); }
+.priority-nice { background: rgba(106,155,94,0.2); color: var(--mint); }
+
+/* ── VARIETY PICKS ── */
+.variety-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+.variety-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.4rem; }
+.variety-crop { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); margin-bottom: 0.4rem; }
+.variety-card h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; color: var(--sun); margin-bottom: 0.5rem; }
+.variety-card p { font-size: 0.85rem; color: var(--mint); line-height: 1.65; }
+
+/* ════════ HARVEST & STORAGE ════════ */
+#storage { background: var(--parchment); }
+
+.storage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
+.storage-card { background: var(--white); border: 1.5px solid rgba(47,96,39,0.12); border-radius: 14px; padding: 1.5rem; }
+.storage-icon { font-size: 1.9rem; margin-bottom: 0.6rem; }
+.storage-card h4 { font-family: 'Fraunces', serif; font-size: 1.08rem; color: var(--soil); margin-bottom: 0.5rem; }
+.storage-row { display: flex; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.4rem; }
+.storage-row .s-label { font-family: 'Space Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--leaf); flex-shrink: 0; min-width: 64px; padding-top: 0.1rem; }
+
+.preserve-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.preserve-table th { text-align: left; font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--leaf); padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(47,96,39,0.15); }
+.preserve-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid rgba(47,96,39,0.08); line-height: 1.55; }
+.preserve-table td:first-child { font-weight: 600; color: var(--soil); }
+
+/* ════════ POLLINATOR / READING ADD-ONS (within gear section) ════════ */
+.reading-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.reading-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.4rem; }
+.reading-card h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; color: var(--sun); margin-bottom: 0.4rem; }
+.reading-card .reading-author { font-family: 'Space Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sage); margin-bottom: 0.6rem; }
+.reading-card p { font-size: 0.85rem; color: var(--mint); line-height: 1.6; }
+
+.pollinator-strip { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
+.pollinator-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 0.4rem 0.9rem; font-size: 0.82rem; color: var(--mint); }
+
+/* ════════ WHERE TO BUY / PRICING ════════ */
+#buying { background: var(--cream); }
+
+.source-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.source-card { background: var(--white); border: 1.5px solid var(--parchment); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; }
+.source-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.source-card h4 { font-family: 'Fraunces', serif; font-size: 1.08rem; color: var(--soil); margin-bottom: 0.4rem; }
+.source-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem; flex-grow: 1; }
+.source-best { font-size: 0.78rem; border-top: 1px solid var(--parchment); padding-top: 0.6rem; color: var(--leaf); line-height: 1.5; }
+.source-best strong { color: var(--soil); }
+
+.price-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.price-table th { text-align: left; font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--leaf); padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(47,96,39,0.15); }
+.price-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid rgba(47,96,39,0.08); line-height: 1.55; vertical-align: top; }
+.price-table td:first-child { font-weight: 600; color: var(--soil); white-space: nowrap; }
+.price-table td:nth-child(2), .price-table td:nth-child(3) { font-family: 'Space Mono', monospace; font-size: 0.82rem; color: var(--leaf); white-space: nowrap; }
+
+.save-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.save-card { background: var(--white); border: 1.5px dashed var(--sage); border-radius: 14px; padding: 1.3rem; }
+.save-card .save-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+.save-card h4 { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--soil); margin-bottom: 0.4rem; }
+.save-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+.price-note { font-size: 0.8rem; color: var(--sage); font-family: 'Space Mono', monospace; line-height: 1.7; margin-top: 1.5rem; max-width: 660px; }
+
+/* ════════ APPS & TOOLS ════════ */
+#apps { background: var(--soil); }
+#apps .section-label { color: var(--sage); }
+#apps .section-title { color: var(--cream); }
+#apps .section-intro { color: var(--mint); }
+
+.platform-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.platform-tab {
+  padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; color: var(--mint); font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.platform-tab:hover { border-color: var(--sun); color: var(--sun); }
+.platform-tab.active { background: var(--sun); border-color: var(--sun); color: var(--soil); font-weight: 600; }
+.platform-panel { display: none; }
+.platform-panel.active { display: block; }
+
+.app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.app-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 1.4rem; position: relative; transition: transform 0.2s, border-color 0.2s;
+}
+.app-card:hover { transform: translateY(-3px); border-color: var(--sun); }
+.app-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.app-card h4 { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--cream); margin-bottom: 0.4rem; }
+.app-card p { font-size: 0.85rem; color: var(--mint); line-height: 1.6; margin-bottom: 0.7rem; }
+.app-use { font-size: 0.78rem; color: var(--sage); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.6rem; line-height: 1.55; }
+.app-use strong { color: var(--sun); font-weight: 600; }
+.app-cost { position: absolute; top: 1.2rem; right: 1.2rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 100px; }
+.cost-free { background: rgba(106,155,94,0.2); color: var(--mint); }
+.cost-paid { background: rgba(232,184,75,0.2); color: var(--sun); }
+
+.search-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+  color: var(--soil); text-decoration: none;
+  background: var(--sun); border-radius: 100px;
+  padding: 0.45rem 0.95rem; transition: transform 0.15s, background 0.15s;
+}
+.search-link:hover { background: #f0b94a; transform: translateY(-1px); }
+
+/* search links on light cards need a different fill */
+.source-card .search-link, .save-card .search-link {
+  background: var(--leaf); color: var(--white);
+}
+.source-card .search-link:hover, .save-card .search-link:hover { background: #7d9450; }
+
+
+/* ════════ QUICK TIPS ════════ */
+#tips { background: var(--parchment); }
+
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+.tip-card {
+  background: var(--white); border: 1.5px solid rgba(47,96,39,0.1); border-radius: 14px;
+  padding: 1.3rem; display: flex; gap: 0.9rem; align-items: flex-start;
+}
+.tip-num {
+  font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700;
+  color: var(--white); background: var(--leaf); border-radius: 50%;
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tip-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+.tip-card p strong { color: var(--soil); }
+
+/* ════════ FOOTER ════════ */
+
+
+
+
+footer { background: var(--soil); padding: 3rem 2rem; text-align: center; }
+footer .footer-logo { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.4rem; color: var(--sun); margin-bottom: 0.8rem; }
+footer p { color: var(--sage); font-size: 0.82rem; line-height: 1.7; max-width: 420px; margin: 0 auto; }
+
+/* ════════ TABLE WRAPPER (horizontal scroll on small screens) ════════ */
+.table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll table { min-width: 560px; }
+
+/* ════════ RESPONSIVE / PHONE ════════ */
+@media (max-width: 760px) {
+  .page-wrap { padding: 0 1.2rem; }
+  section { padding: 3rem 0; }
+
+  /* Nav becomes a dropdown beneath the floating pill */
+  .site-nav { top: 0.7rem; padding: 0.6rem 1rem; width: calc(100% - 1.6rem); border-radius: 18px; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: absolute; top: calc(100% + 0.5rem); left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: rgba(45,27,14,0.97);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+  }
+  .nav-links.open { max-height: 70vh; overflow-y: auto; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 0.9rem 1.2rem; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  /* Hero */
+  .hero { padding: 5rem 1.2rem 3rem; min-height: 92vh; }
+  .hero h1 { font-size: clamp(2.1rem, 11vw, 2.8rem); }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-crops { gap: 0.6rem; margin-top: 2rem; }
+  .crop-chip { font-size: 0.78rem; padding: 0.35rem 0.85rem; }
+
+  /* Section titles */
+  .section-title { font-size: clamp(1.5rem, 7vw, 2rem); }
+  .section-intro { font-size: 0.92rem; margin-bottom: 2rem; }
+
+  /* Grids collapse to single column */
+  .crop-grid, .care-grid, .companion-grid, .gear-grid, .variety-grid,
+  .storage-grid, .reading-grid, .source-grid, .save-grid, .month-grid, .water-signals, .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Layout section: stack panel, shrink cells */
+  .layout-panel.active { grid-template-columns: 1fr; gap: 1.5rem; }
+  .layout-tabs { flex-direction: column; }
+  .layout-tab { width: 100%; text-align: center; }
+  .garden-grid { max-width: 100%; }
+  .garden-cell .cell-tip { white-space: normal; max-width: 160px; left: 0; transform: none; }
+
+  /* Three sisters */
+  .three-sisters { grid-template-columns: 1fr; gap: 1.5rem; }
+  .sisters-visual { padding: 2rem 1.4rem; }
+
+  /* Soil grid */
+  .soil-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  /* Tables scroll horizontally instead of squeezing */
+  .pest-table, .amend-table, .preserve-table, .price-table { min-width: 540px; }
+
+  /* Pollinator chips */
+  .pollinator-strip { gap: 0.5rem; }
+  .pollinator-chip { font-size: 0.78rem; padding: 0.35rem 0.8rem; }
+
+  footer { padding: 2.5rem 1.2rem; }
+}
+
+@media (max-width: 420px) {
+  .hero h1 { font-size: 2rem; }
+  .garden-grid { gap: 3px; }
+  .garden-cell { font-size: 1rem; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="logo">The Summer Garden</div>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open'); this.classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#layout">Layout</a></li>
+    <li><a href="#crops">Crops</a></li>
+    <li><a href="#soil">Soil</a></li>
+    <li><a href="#care">Care</a></li>
+    <li><a href="#tips">Quick Tips</a></li>
+    <li><a href="#pests">Pests</a></li>
+    <li><a href="#companions">Companions</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#troubleshoot">Troubleshoot</a></li>
+    <li><a href="#storage">Storage</a></li>
+    <li><a href="#gear">Gear</a></li>
+    <li><a href="#buying">Where to Buy</a></li>
+    <li><a href="#apps">Apps & Tools</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <p class="hero-eyebrow">A Complete Field Guide</p>
+  <h1>Grow Something <em>Wild</em> This Summer</h1>
+  <p class="hero-sub">From planning your bed layout to harvesting the last tomato — everything you need to grow fruit and vegetables through the most generous season of the year.</p>
+  <div class="hero-crops">
+    <span class="crop-chip">🍅 Tomatoes</span>
+    <span class="crop-chip">🫑 Peppers</span>
+    <span class="crop-chip">🥒 Cucumbers</span>
+    <span class="crop-chip">🌽 Corn</span>
+    <span class="crop-chip">🍓 Strawberries</span>
+    <span class="crop-chip">🫐 Blueberries</span>
+    <span class="crop-chip">🍉 Melon</span>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Scroll to explore
+  </div>
+</header>
+
+<!-- ══ LAYOUT ══ -->
+<section id="layout">
+  <div class="page-wrap">
+    <span class="section-label reveal">Plan Before You Plant</span>
+    <h2 class="section-title reveal">Garden <em>Layout</em> Ideas</h2>
+    <p class="section-intro reveal">A good layout saves you from shading problems, overcrowding, and wasted space before they happen. Click between three example beds — sized for a balcony, a backyard raised bed, and a dedicated plot — and hover any cell to see what's growing there.</p>
+
+    <div class="layout-tabs reveal">
+      <button class="layout-tab active" data-panel="small">Small Space — 3×3 ft</button>
+      <button class="layout-tab" data-panel="raised">Raised Bed — 4×8 ft</button>
+      <button class="layout-tab" data-panel="sisters">Three Sisters Plot — 6×6 ft</button>
+    </div>
+
+    <!-- SMALL SPACE -->
+    <div class="layout-panel active" id="panel-small">
+      <div class="bed-wrap">
+        <div class="bed-title">Patio or Balcony Bed</div>
+        <div class="bed-dims">3 × 3 ft — 9 squares, square-foot method</div>
+        <div class="garden-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="garden-cell" style="background:#C94A27;">🍅<div class="cell-tip"><strong>Cherry Tomato</strong>1 plant, staked, centre for sun</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌿<div class="cell-tip"><strong>Basil ×4</strong>Repels pests, pairs with tomato</div></div>
+          <div class="garden-cell" style="background:#D98E5E;">🫑<div class="cell-tip"><strong>Pepper</strong>1 plant, full sun corner</div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🥬<div class="cell-tip"><strong>Lettuce ×4</strong>Quick crop, shade from tomato helps in heat</div></div>
+          <div class="garden-cell" style="background:#E8B84B;">🌼<div class="cell-tip"><strong>Marigold ×9</strong>Pest deterrent, edges of bed</div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🥬<div class="cell-tip"><strong>Spinach ×4</strong>Cool-season filler, replant after harvest</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌱<div class="cell-tip"><strong>Bush Beans ×9</strong>Low growing, fixes nitrogen</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌱<div class="cell-tip"><strong>Bush Beans ×9</strong>Continues row from left</div></div>
+          <div class="garden-cell" style="background:#D8607A;">🍓<div class="cell-tip"><strong>Strawberries ×4</strong>Trails over the edge nicely</div></div>
+        </div>
+        <div class="compass"><div class="compass-n">N</div><span>Place tallest plants (tomato, pepper) on the north side</span></div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-legend">
+          <h4>What's Planted</h4>
+          <div class="legend-item"><div class="legend-swatch" style="background:#C94A27;"></div>Cherry tomato (anchor plant)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#D98E5E;"></div>Pepper</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#7FB069;"></div>Basil & bush beans</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#A8C97F;"></div>Lettuce & spinach (cool fillers)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#D8607A;"></div>Strawberries (trailing edge)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#E8B84B;"></div>Marigolds (border)</div>
+        </div>
+        <div class="layout-notes">
+          <h4>Why It Works</h4>
+          <div class="layout-note"><span class="note-num">01</span>One tomato and one pepper are enough for a tiny bed — both will spread wide by midsummer.</div>
+          <div class="layout-note"><span class="note-num">02</span>Quick crops like lettuce and spinach fill gaps early, then get replaced once the tomato canopy grows.</div>
+          <div class="layout-note"><span class="note-num">03</span>Marigolds along the border do double duty as pest deterrent and pollinator draw without taking real space.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAISED BED -->
+    <div class="layout-panel" id="panel-raised">
+      <div class="bed-wrap">
+        <div class="bed-title">Backyard Raised Bed</div>
+        <div class="bed-dims">4 × 8 ft — 32 squares, classic productive layout</div>
+        <div class="garden-grid" style="grid-template-columns: repeat(8, 1fr);">
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong>Block of 4, north row</div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong>Wind pollination needs a block</div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#C94A27;">🍅<div class="cell-tip"><strong>Tomato</strong>Staked, north side for height</div></div>
+          <div class="garden-cell" style="background:#C94A27;">🍅<div class="cell-tip"><strong>Tomato</strong></div></div>
+          <div class="garden-cell" style="background:#D98E5E;">🫑<div class="cell-tip"><strong>Pepper</strong></div></div>
+          <div class="garden-cell" style="background:#D98E5E;">🫑<div class="cell-tip"><strong>Pepper</strong></div></div>
+
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn</strong></div></div>
+          <div class="garden-cell" style="background:#C94A27;">🍅<div class="cell-tip"><strong>Tomato</strong></div></div>
+          <div class="garden-cell" style="background:#C94A27;">🍅<div class="cell-tip"><strong>Tomato</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌿<div class="cell-tip"><strong>Basil ×4</strong>Companion for tomatoes</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌿<div class="cell-tip"><strong>Basil ×4</strong></div></div>
+
+          <div class="garden-cell" style="background:#5FA8A8;">🥒<div class="cell-tip"><strong>Cucumber on trellis</strong>Vertical growth, doesn't shade neighbours</div></div>
+          <div class="garden-cell" style="background:#5FA8A8;">🥒<div class="cell-tip"><strong>Cucumber on trellis</strong></div></div>
+          <div class="garden-cell" style="background:#5FA8A8;">🥒<div class="cell-tip"><strong>Cucumber on trellis</strong></div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Zucchini</strong>Needs 4 ft spread, give it room</div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Zucchini</strong>Spreads into this square too</div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Zucchini</strong>And this one</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌱<div class="cell-tip"><strong>Pole beans on trellis</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌱<div class="cell-tip"><strong>Pole beans on trellis</strong></div></div>
+
+          <div class="garden-cell" style="background:#D8607A;">🍓<div class="cell-tip"><strong>Strawberries ×4</strong>South edge, low and sunny</div></div>
+          <div class="garden-cell" style="background:#D8607A;">🍓<div class="cell-tip"><strong>Strawberries ×4</strong></div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🥬<div class="cell-tip"><strong>Lettuce/greens ×4</strong>Succession sow every 2 weeks</div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🥬<div class="cell-tip"><strong>Lettuce/greens ×4</strong></div></div>
+          <div class="garden-cell" style="background:#E8B84B;">🌼<div class="cell-tip"><strong>Marigolds & nasturtiums</strong>Border planting for pests & pollinators</div></div>
+          <div class="garden-cell" style="background:#E8B84B;">🌼<div class="cell-tip"><strong>Marigolds & nasturtiums</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌿<div class="cell-tip"><strong>Dill</strong>Attracts predatory wasps</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🌿<div class="cell-tip"><strong>Cilantro</strong>Quick succession crop</div></div>
+        </div>
+        <div class="compass"><div class="compass-n">N</div><span>Corn and tomatoes form a north wall — everything south of them stays in full sun</span></div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-legend">
+          <h4>What's Planted</h4>
+          <div class="legend-item"><div class="legend-swatch" style="background:#6B8E4E;"></div>Corn block (4×4 minimum)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#C94A27;"></div>Tomatoes, staked</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#D98E5E;"></div>Peppers</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#5FA8A8;"></div>Cucumbers (vertical trellis)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#E8C84B;"></div>Zucchini / squash</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#7FB069;"></div>Beans, basil, herbs</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#A8C97F;"></div>Lettuce & greens</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#D8607A;"></div>Strawberries</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#E8B84B;"></div>Flowers (pest deterrent border)</div>
+        </div>
+        <div class="layout-notes">
+          <h4>Why It Works</h4>
+          <div class="layout-note"><span class="note-num">01</span>Tall crops (corn, staked tomatoes) sit on the north edge so they never shade the rest of the bed as the sun arcs south.</div>
+          <div class="layout-note"><span class="note-num">02</span>Vertical growers (cucumbers, pole beans) go on trellises along one side — same footprint, three times the yield.</div>
+          <div class="layout-note"><span class="note-num">03</span>Zucchini gets its own zone because its leaves will spread to cover 9+ sq ft by August.</div>
+          <div class="layout-note"><span class="note-num">04</span>The south edge is reserved for low growers (strawberries, lettuce) that need every bit of light they can get.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREE SISTERS -->
+    <div class="layout-panel" id="panel-sisters">
+      <div class="bed-wrap">
+        <div class="bed-title">Three Sisters Mound Plot</div>
+        <div class="bed-dims">6 × 6 ft — traditional companion mound system</div>
+        <div class="garden-grid" style="grid-template-columns: repeat(6, 1fr);">
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong>Vines outward, shades soil</div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🌱<div class="cell-tip"><strong>Open path</strong>Squash will fill this in by July</div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong>4–5 stalks per mound</div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong>Planted at base of corn once it's 6in tall</div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+
+          <div class="garden-cell" style="background:#A8C97F;">🌱<div class="cell-tip"><strong>Open path</strong>Maintenance access</div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🌱<div class="cell-tip"><strong>Open path</strong></div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong></div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🌱<div class="cell-tip"><strong>Open path</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong>Edges fill in by midsummer</div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+          <div class="garden-cell" style="background:#7FB069;">🫘<div class="cell-tip"><strong>Climbing beans</strong></div></div>
+          <div class="garden-cell" style="background:#A8C97F;">🌱<div class="cell-tip"><strong>Open path</strong></div></div>
+          <div class="garden-cell" style="background:#E8C84B;">🎃<div class="cell-tip"><strong>Squash</strong></div></div>
+          <div class="garden-cell" style="background:#6B8E4E;">🌽<div class="cell-tip"><strong>Corn mound</strong></div></div>
+        </div>
+        <div class="compass"><div class="compass-n">N</div><span>Plant in full sun — by August, squash leaves cover nearly all open ground</span></div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-legend">
+          <h4>What's Planted</h4>
+          <div class="legend-item"><div class="legend-swatch" style="background:#6B8E4E;"></div>Corn (planted first, in mounds)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#7FB069;"></div>Climbing beans (added 2 weeks later)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#E8C84B;"></div>Squash (added last, around the edges)</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:#A8C97F;"></div>Open ground at planting — fills in by midsummer</div>
+        </div>
+        <div class="layout-notes">
+          <h4>Planting Sequence</h4>
+          <div class="layout-note"><span class="note-num">01</span>Plant corn first in mounds spaced 2–3 ft apart, 4–5 seeds per mound.</div>
+          <div class="layout-note"><span class="note-num">02</span>Once corn is ankle-high (about 2 weeks), plant climbing beans at the base of each mound.</div>
+          <div class="layout-note"><span class="note-num">03</span>A week after that, plant squash in the spaces between mounds — by midsummer its leaves smother nearly all bare soil.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CROPS ══ -->
+<section id="crops">
+  <div class="page-wrap">
+    <span class="section-label reveal">What to Grow</span>
+    <h2 class="section-title reveal">The Summer <em>Harvest</em></h2>
+    <p class="section-intro reveal">Summer is the most productive season in the garden. These crops thrive in warm soil, long days, and the kind of heat that would wilt cool-season plants. Pick your players and commit to them.</p>
+
+    <span class="section-label reveal" style="color: var(--tomato); margin-bottom:0.8rem;">Vegetables</span>
+    <div class="crop-grid" style="margin-bottom: 2.5rem;">
+
+      <div class="crop-card reveal" data-icon="🍅">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Tomatoes</h3>
+        <p>The cornerstone of the summer garden. Indeterminate varieties keep producing all season; determinates give one big flush and stop. Consistent watering matters most — irregular moisture causes blossom end rot and fruit cracking.</p>
+        <div class="crop-detail">Deeper tip: prune the suckers (shoots between the main stem and branches) on indeterminate types weekly. This redirects energy to fruit and improves airflow, reducing fungal disease.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">8+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">Deep, 2×/wk</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">60–85</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🫑">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Peppers</h3>
+        <p>Bell peppers and hot varieties both love heat and are slow starters. Once the heat of summer really kicks in, they explode with fruit. Leave a few on the plant to fully ripen to red, yellow, or orange — sweeter and more nutritious.</p>
+        <div class="crop-detail">Deeper tip: peppers are perennials in warm climates. In cooler zones, a healthy plant can be potted up and overwintered indoors near a sunny window for an early head start next year.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6–8 hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">Moderate</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">70–90</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🥒">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Cucumbers</h3>
+        <p>Fast-growing vines that love to climb. Train them up a trellis to save space, improve airflow, and keep fruit clean and straight. Harvest frequently — cucumbers left too long turn bitter and signal the plant to slow production.</p>
+        <div class="crop-detail">Deeper tip: bitter flavor often comes from heat stress or inconsistent watering, not the variety. Mulch heavily and water on a fixed schedule to keep cucumbers sweet.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6–8 hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">High</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">50–70</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🥒">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Zucchini & Summer Squash</h3>
+        <p>Notorious overproducers — one or two plants will keep a family well-fed (and looking for recipes). Harvest when small, around 6–8 inches, for the best flavor and texture. They need plenty of room — plan for a 4 ft spread per plant.</p>
+        <div class="crop-detail">Deeper tip: if flowers form but fruit shrivels and drops, it's usually a pollination issue. Hand-pollinate with a small brush, moving pollen from male flowers (thin stem) to female flowers (tiny fruit at the base).</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">Moderate</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">45–60</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🌽">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Sweet Corn</h3>
+        <p>Needs space and numbers. Plant in a block of at least 4×4 rather than long single rows — corn pollinates by wind, and a block ensures every ear fills out completely. Eat or preserve within hours of harvest for peak sweetness, which fades fast.</p>
+        <div class="crop-detail">Deeper tip: corn is a heavy nitrogen feeder. Side-dress with compost or a nitrogen-rich fertilizer when stalks are knee-high and again when tassels appear.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">8+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">High</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">65–90</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🫘">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Green Beans</h3>
+        <p>One of the easiest and most forgiving crops in the garden. Bush beans are compact and need no support; pole beans climb but produce over a longer window. Succession plant every 2 weeks through midsummer for a continuous harvest.</p>
+        <div class="crop-detail">Deeper tip: beans fix nitrogen via bacteria in root nodules. After the season, cut plants at soil level rather than pulling them — leave the roots to decompose and feed the next crop.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">Moderate</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">50–60</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🍆">
+        <span class="crop-tag">Vegetable</span>
+        <h3>Eggplant</h3>
+        <p>A heat-lover that thrives where tomatoes and peppers do, but takes longer to get going. Glossy, taut skin signals readiness — dull or wrinkled skin means it's past its prime and seeds inside will be bitter and tough.</p>
+        <div class="crop-detail">Deeper tip: flea beetles love young eggplant leaves. Cover transplants with row cover until plants are established and large enough to tolerate some damage.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6–8 hrs</span></div>
+          <div class="stat"><span class="stat-label">Water</span><span class="stat-value">Moderate</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">65–80</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <span class="section-label reveal" style="color: var(--leaf); margin-bottom:0.8rem;">Fruits</span>
+    <div class="crop-grid">
+
+      <div class="crop-card reveal" data-icon="🍓">
+        <span class="crop-tag">Fruit</span>
+        <h3>Strawberries</h3>
+        <p>Peak in early summer. June-bearing varieties give a single concentrated harvest; everbearing types produce smaller flushes through summer and fall. Raised beds and containers work beautifully. Protect ripening fruit from birds with netting.</p>
+        <div class="crop-detail">Deeper tip: strawberry plants send out runners that root and form new plants. Let a few establish each year to replace older, less productive crowns — most plants decline after 3 years.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6–8 hrs</span></div>
+          <div class="stat"><span class="stat-label">Soil pH</span><span class="stat-value">5.5–6.5</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">~30 (established)</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🫐">
+        <span class="crop-tag">Fruit</span>
+        <h3>Blueberries</h3>
+        <p>Slow to establish but incredibly low maintenance once settled. They require acidic soil — amend with elemental sulfur or use a dedicated acidic potting mix in containers. Plant two different varieties for cross-pollination and noticeably larger yields.</p>
+        <div class="crop-detail">Deeper tip: mulch with pine needles or wood chips, which slowly acidify the soil as they break down — a low-effort way to maintain the pH blueberries need long term.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Soil pH</span><span class="stat-value">4.5–5.5</span></div>
+          <div class="stat"><span class="stat-label">Years to harvest</span><span class="stat-value">2–3</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🍉">
+        <span class="crop-tag">Fruit</span>
+        <h3>Watermelon & Melon</h3>
+        <p>Heat lovers that need 80+ warm days to ripen. Give them room to sprawl — vines can run 6–10 feet, or grow compact varieties on a sturdy trellis with fruit slings for support. Telling ripeness takes practice but gets easier with experience.</p>
+        <div class="crop-detail">Deeper tip: for watermelon, look for a dried, curled tendril near the stem and a creamy yellow (not white) underside — both are more reliable than the classic "thump" test.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">8+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Space</span><span class="stat-value">6–10 ft vines</span></div>
+          <div class="stat"><span class="stat-label">Days to harvest</span><span class="stat-value">80–100</span></div>
+        </div>
+      </div>
+
+      <div class="crop-card reveal" data-icon="🍇">
+        <span class="crop-tag">Fruit</span>
+        <h3>Raspberries</h3>
+        <p>Summer-bearing varieties fruit on second-year canes (called floricanes) in June and July, while fall-bearing types fruit on first-year canes later in the season. Plant against a fence or sturdy trellis — canes need support once loaded with fruit.</p>
+        <div class="crop-detail">Deeper tip: prune spent floricanes (the canes that just fruited) right after harvest. This directs the plant's energy into next year's canes and keeps the patch from becoming an impenetrable thicket.</div>
+        <div class="crop-stats">
+          <div class="stat"><span class="stat-label">Sun</span><span class="stat-value">6+ hrs</span></div>
+          <div class="stat"><span class="stat-label">Soil pH</span><span class="stat-value">5.5–6.5</span></div>
+          <div class="stat"><span class="stat-label">Years to harvest</span><span class="stat-value">2 (floricane types)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOIL ══ -->
+<section id="soil">
+  <div class="page-wrap">
+    <span class="section-label reveal">The Foundation</span>
+    <h2 class="section-title reveal">Soil, Compost & <em>Amendments</em></h2>
+    <p class="section-intro reveal">Healthy soil is the single biggest factor in a productive summer garden — more than sun, more than variety choice. Here's what's actually in your soil, how to build a compost pile that works, and what to add when something's missing.</p>
+
+    <div class="soil-grid">
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin-bottom:1rem;" class="reveal">Know Your Soil Type</h3>
+        <div class="soil-types">
+          <div class="soil-type-card reveal">
+            <div class="soil-swatch" style="background:#C9A876;"></div>
+            <div><h4>Sandy</h4><p>Drains fast and warms up quickly in spring, but nutrients and water wash through before plants can use them. Improve by working in plenty of compost, which acts like a sponge.</p></div>
+          </div>
+          <div class="soil-type-card reveal">
+            <div class="soil-swatch" style="background:#8B6F47;"></div>
+            <div><h4>Clay</h4><p>Holds nutrients and water well but drains slowly and compacts easily, suffocating roots. Improve by adding coarse organic matter and avoiding walking on wet beds.</p></div>
+          </div>
+          <div class="soil-type-card reveal">
+            <div class="soil-swatch" style="background:#5C4A33;"></div>
+            <div><h4>Loam</h4><p>The goal: a balanced mix of sand, silt, and clay that holds moisture but drains well and crumbles easily in your hand. Most amendment efforts aim to move soil toward loam.</p></div>
+          </div>
+          <div class="soil-type-card reveal">
+            <div class="soil-swatch" style="background:#3D2E1F;"></div>
+            <div><h4>Peaty / High Organic</h4><p>Dark, spongy, and nutrient-rich, but can hold too much water and may be acidic. Great for blueberries; may need lime for crops that prefer neutral pH.</p></div>
+          </div>
+        </div>
+
+        <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin:2.5rem 0 0.5rem;" class="reveal">Common Amendments</h3>
+        <div class="table-scroll">
+        <table class="amend-table reveal">
+          <thead><tr><th>Amendment</th><th>What It Does</th><th>Use For</th></tr></thead>
+          <tbody>
+            <tr><td>Compost</td><td>Improves structure, adds slow-release nutrients and beneficial microbes</td><td>Almost everything, every season</td></tr>
+            <tr><td>Aged Manure</td><td>Rich in nitrogen and organic matter</td><td>Heavy feeders like corn and squash — must be aged 6+ months</td></tr>
+            <tr><td>Elemental Sulfur</td><td>Lowers soil pH (more acidic) over several months</td><td>Blueberries, potatoes</td></tr>
+            <tr><td>Garden Lime</td><td>Raises soil pH (less acidic)</td><td>Soil that's tested too acidic for most vegetables</td></tr>
+            <tr><td>Bone Meal</td><td>Slow-release phosphorus, supports root and flower development</td><td>Tomatoes, peppers, root crops at planting</td></tr>
+            <tr><td>Worm Castings</td><td>Gentle, won't burn roots, improves microbial activity</td><td>Seedlings, container plants</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin-bottom:1.4rem;" class="reveal">Build a Compost Pile</h3>
+        <div class="compost-timeline reveal">
+          <div class="compost-step">
+            <div class="compost-line"><div class="compost-dot"></div><div class="compost-connector"></div></div>
+            <div class="compost-body"><strong>Layer in browns and greens</strong><p>Alternate 2–3 inches of "browns" (dried leaves, straw, cardboard) with 2 inches of "greens" (kitchen scraps, fresh grass clippings, coffee grounds). Aim for roughly 3 parts brown to 1 part green by volume.</p></div>
+          </div>
+          <div class="compost-step">
+            <div class="compost-line"><div class="compost-dot"></div><div class="compost-connector"></div></div>
+            <div class="compost-body"><strong>Keep it moist, not soggy</strong><p>The pile should feel like a wrung-out sponge. Too dry and decomposition stalls; too wet and it goes anaerobic, turning slimy and smelly.</p></div>
+          </div>
+          <div class="compost-step">
+            <div class="compost-line"><div class="compost-dot"></div><div class="compost-connector"></div></div>
+            <div class="compost-body"><strong>Turn every 1–2 weeks</strong><p>Moving outer material to the centre reintroduces oxygen and reignites the microbes doing the actual breakdown — this is the step most home piles skip, and the main reason they stall.</p></div>
+          </div>
+          <div class="compost-step">
+            <div class="compost-line"><div class="compost-dot"></div></div>
+            <div class="compost-body"><strong>Ready in 6–12 weeks</strong><p>Finished compost is dark, crumbly, and smells like forest floor. If you can still identify the original ingredients, give it more time and keep turning.</p></div>
+          </div>
+        </div>
+
+        <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin:2rem 0 0.6rem;" class="reveal">What Not to Compost</h3>
+        <p class="reveal" style="font-size:0.88rem; color:var(--muted); line-height:1.7;">Avoid meat, dairy, and oily foods (they attract pests and smell badly while breaking down), diseased plant material (pathogens can survive and reinfect next year's beds), and weeds that have already gone to seed (most home piles don't get hot enough to kill seeds).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CARE GUIDE ══ -->
+<section id="care">
+  <div class="page-wrap">
+    <span class="section-label reveal">Care Guide</span>
+    <h2 class="section-title reveal">Keeping Your Garden <em>Thriving</em></h2>
+    <p class="section-intro reveal">Summer sun is generous but demanding. Heat, drought, and pests can undo weeks of work fast. These are the four pillars of summer garden care — and why each one matters.</p>
+    <div class="care-grid">
+
+      <div class="care-card water reveal">
+        <div class="care-icon">💧</div>
+        <h3>Watering</h3>
+        <ul>
+          <li>Water deeply 2–3× per week rather than shallowly every day — deep roots reach cooler, moister soil and survive drought stress far better</li>
+          <li>Water at the base, never overhead — wet foliage invites fungal diseases like early blight and powdery mildew</li>
+          <li>Morning watering is best; leaves dry before nightfall</li>
+          <li>Drip irrigation or soaker hoses deliver water exactly where it's needed and can cut water use by roughly half</li>
+          <li>Containers dry out far faster than raised beds — check daily during heat waves</li>
+          <li>Self-watering containers or buried clay "ollas" dramatically reduce watering frequency</li>
+        </ul>
+      </div>
+
+      <div class="care-card soil-care reveal">
+        <div class="care-icon">🌱</div>
+        <h3>Soil & Feeding</h3>
+        <ul>
+          <li>Work 2–3 inches of compost into beds before planting; top-dress again mid-season</li>
+          <li>Heavy feeders (tomatoes, corn, peppers) benefit from balanced fertilizer every 2–3 weeks through fruit set</li>
+          <li>Switch to a low-nitrogen, high-potassium feed once fruiting begins to prioritize fruit over leaf growth</li>
+          <li>Mulch 2–3 inches deep with straw, wood chips, or shredded leaves to reduce watering, suppress weeds, and moderate soil temperature</li>
+          <li>Beans and peas are largely self-sufficient on nitrogen — over-fertilizing produces bushy plants with few pods</li>
+          <li>A pH of 6.0–7.0 suits most vegetables; test every spring and amend as needed</li>
+        </ul>
+      </div>
+
+      <div class="care-card sun reveal">
+        <div class="care-icon">☀️</div>
+        <h3>Light & Heat Management</h3>
+        <ul>
+          <li>Fruiting crops (tomatoes, peppers, corn, cucumbers) need a minimum of 6 hours of direct sun — 8 is ideal</li>
+          <li>Orient tall plants (corn, staked tomatoes) to the north side of beds so they don't shadow shorter neighbors</li>
+          <li>Above 95°F, tomatoes and beans often drop blossoms — this is normal and they'll resume once temperatures drop</li>
+          <li>Shade cloth at 30–50% density draped over vulnerable crops during a heat wave can save the season</li>
+          <li>Light-colored or reflective mulch around fruiting plants can cool soil roots by several degrees</li>
+          <li>Floating row covers protect against both late-spring and early-fall frost, extending the season at both ends</li>
+        </ul>
+      </div>
+
+      <div class="care-card harvest reveal">
+        <div class="care-icon">🧺</div>
+        <h3>Harvesting Right</h3>
+        <ul>
+          <li>Harvest frequently and consistently — overripe fruit left on the plant shifts it from producing into seed-setting mode, slowing growth</li>
+          <li>Pick in the morning when produce is cool and fully hydrated; afternoon-picked fruit wilts faster</li>
+          <li>Use clean, sharp scissors or pruners — tearing creates ragged wounds that invite infection</li>
+          <li>Most vegetables hold flavor best at room temperature short-term; tomatoes especially lose flavor quickly in the fridge</li>
+          <li>Succession-plant fast crops (beans, lettuce, radish) every 2–3 weeks to avoid feast-or-famine harvests</li>
+          <li>In late August, mark your best-performing plants for seed saving before the season ends</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="margin-top:3rem;">
+      <h3 style="font-family:'Fraunces',serif;font-size:1.25rem;color:var(--soil);margin-bottom:0.5rem;">Reading Your Plants: Water Signals</h3>
+      <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;max-width:660px;">Overwatering and underwatering often look identical at first glance — both cause wilting and yellow leaves. Here's how to tell them apart before you make it worse.</p>
+      <div class="water-signals">
+        <div class="signal-card over">
+          <h4>💧 Signs of Overwatering</h4>
+          <ul>
+            <li>Yellowing leaves that feel soft and limp</li>
+            <li>Lower, older leaves yellow and drop first</li>
+            <li>Soil is wet or soggy an inch below the surface</li>
+            <li>Plant wilts despite wet soil — usually root rot</li>
+            <li>White mold or green algae forming on soil surface</li>
+            <li>A musty smell at the soil line</li>
+          </ul>
+        </div>
+        <div class="signal-card under">
+          <h4>🏜️ Signs of Underwatering</h4>
+          <ul>
+            <li>Leaf edges turn brown and crispy</li>
+            <li>Wilting that recovers fully after an evening watering</li>
+            <li>Soil visibly pulled away from container edges</li>
+            <li>Pot feels unusually light (dry soil is much lighter)</li>
+            <li>Blossom drop on tomatoes and peppers</li>
+            <li>Bitter flavor developing in cucumbers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUICK TIPS ══ -->
+<section id="tips">
+  <div class="page-wrap">
+    <span class="section-label reveal" style="color: var(--leaf);">Bite-Sized Wisdom</span>
+    <h2 class="section-title reveal">Quick <em>Tips & Tricks</em></h2>
+    <p class="section-intro reveal">A grab-bag of small habits and tricks that don't need their own section, but make a noticeable difference over a season.</p>
+    <div class="tips-grid">
+      <div class="tip-card reveal"><div class="tip-num">01</div><p>Plant a few extra seeds of everything — not every seed germinates, and thinning later is easier than gaps in a row.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">02</div><p>Label everything as you plant. By July, seedlings of different squash varieties look identical, and memory fades fast.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">03</div><p>Water the soil, not the plant. A quick splash on leaves evaporates fast and does little for roots — aim the hose at the base.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">04</div><p>Pinch off the first flowers on young transplants for a week or two — it lets the plant establish roots before fruiting, leading to a stronger plant overall.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">05</div><p>Rotate where you plant tomatoes, peppers, and eggplant each year — they're all in the nightshade family and share the same soil-borne diseases.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">06</div><p><strong>Save eggshells</strong> and crush them around seedlings — a mild slug deterrent and a slow calcium source as they break down.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">07</div><p>Use the leaves of harvested plants as instant mulch — chopped and laid around remaining crops, they break down and feed the soil in place.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">08</div><p>Plant flowers along garden edges, not just in beds — borders catch pollinators on their way in and make the whole space more inviting.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">09</div><p>If a plant looks stressed after transplanting, resist the urge to fertilize immediately — extra nutrients on stressed roots can do more harm than good. Give it water and time first.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">10</div><p>Keep a small notebook (or phone note) of what you planted where and when — by the third season, this becomes the most valuable resource in your garden.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">11</div><p>Harvest herbs in the morning after dew dries but before the heat of the day — essential oil content is highest then, giving the best flavor.</p></div>
+      <div class="tip-card reveal"><div class="tip-num">12</div><p>Don't compost weeds that have gone to seed — toss them in a separate "weed bucket" that gets emptied away from the garden, not into your compost pile.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PESTS ══ -->
+<section id="pests" class="pest-section">
+  <div class="page-wrap">
+    <span class="section-label reveal">Pest & Disease Guide</span>
+    <h2 class="section-title reveal">Know Your <em>Enemy</em></h2>
+    <p class="section-intro reveal">Healthy soil and diverse planting are your first line of defense. Scout every few days — most problems are manageable if caught early. Lean on organic solutions before anything stronger.</p>
+    <div class="table-scroll">
+    <table class="pest-table reveal">
+      <thead><tr><th>Pest / Disease</th><th>Targets</th><th>Severity</th><th>Organic Solution</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="pest-name">Aphids</span><span class="pest-desc">Tiny soft-bodied clusters on new growth, excrete sticky honeydew</span></td>
+          <td>Tomatoes, peppers, beans, cucumbers</td>
+          <td><span class="severity sev-med">Moderate</span></td>
+          <td>Blast off with a firm water spray each morning. Introduce ladybugs or lacewing larvae. Diluted neem oil as a backup.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Tomato Hornworm</span><span class="pest-desc">Large green caterpillar, surprisingly hard to spot</span></td>
+          <td>Tomatoes, peppers, eggplant</td>
+          <td><span class="severity sev-high">High</span></td>
+          <td>Hand-pick at dusk when active. Check undersides of leaves for shredded foliage and frass (droppings). Drop into soapy water.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Squash Vine Borer</span><span class="pest-desc">Moth larvae that tunnel into stems near the base</span></td>
+          <td>Zucchini, squash, pumpkins</td>
+          <td><span class="severity sev-high">High</span></td>
+          <td>Cover plants with row cover until flowering. Wrap stem bases in foil or nylon. Succession-plant a backup crop in case the first is lost.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Cucumber Beetle</span><span class="pest-desc">Yellow-green beetle with black spots or stripes</span></td>
+          <td>Cucumbers, squash, melons, beans</td>
+          <td><span class="severity sev-high">High</span></td>
+          <td>Yellow sticky traps, kaolin clay on leaves, and row covers removed only once flowers need pollinating.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Spider Mites</span><span class="pest-desc">Nearly invisible mites, fine webbing on leaf undersides</span></td>
+          <td>Most crops, worst in hot dry weather</td>
+          <td><span class="severity sev-med">Moderate</span></td>
+          <td>Keep plants well-watered — stressed plants are most vulnerable. Spray leaf undersides with water. Insecticidal soap if severe.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Slugs & Snails</span><span class="pest-desc">Silvery slime trails, ragged holes in leaves, active at night</span></td>
+          <td>Lettuce, strawberries, seedlings</td>
+          <td><span class="severity sev-low">Low–Moderate</span></td>
+          <td>Crushed eggshells or copper tape around bed edges. Iron phosphate bait (pet-safe). Beer traps work surprisingly well.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Powdery Mildew</span><span class="pest-desc">White, dusty coating on leaves and stems</span></td>
+          <td>Cucumbers, squash, zucchini</td>
+          <td><span class="severity sev-med">Moderate</span></td>
+          <td>Improve airflow with proper spacing and pruning. Water at the base. A diluted milk or baking-soda spray can slow spread on mild cases.</td>
+        </tr>
+        <tr>
+          <td><span class="pest-name">Blossom End Rot</span><span class="pest-desc">Dark, sunken patches on the bottom of fruit</span></td>
+          <td>Tomatoes, peppers, squash</td>
+          <td><span class="severity sev-med">Moderate</span></td>
+          <td>Usually a watering inconsistency issue, not a calcium deficiency in the soil. Mulch and water on a consistent schedule.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPANIONS ══ -->
+<section id="companions">
+  <div class="page-wrap">
+    <span class="section-label reveal">Companion Planting</span>
+    <h2 class="section-title reveal">Plants That <em>Help Each Other</em></h2>
+    <p class="section-intro reveal">Strategic planting partnerships improve yields, deter pests, attract pollinators, and make better use of space. These combinations are tried, tested, and genuinely effective.</p>
+
+    <div class="three-sisters reveal">
+      <div class="sisters-visual">
+        <div class="sisters-icons">🌽🫘🎃</div>
+        <h3>The Three Sisters</h3>
+        <p>One of the oldest and most elegant companion planting systems in the world, developed by Indigenous peoples of North America over thousands of years — three crops in perfect symbiosis.</p>
+      </div>
+      <div>
+        <ul class="sisters-list">
+          <li><strong>🌽 Corn — The Pole</strong>Grows tall and provides a living trellis for beans to climb. Needs block planting for reliable wind pollination.</li>
+          <li><strong>🫘 Beans — The Fixer</strong>Climbing legumes that pull nitrogen from the air and fix it into the soil, feeding their companions naturally all season.</li>
+          <li><strong>🎃 Squash — The Mulch</strong>Sprawling leaves shade the soil, locking in moisture, cooling roots, and crowding out weeds. The prickly leaf texture also deters some pests.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="companion-grid">
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🍅 Tomatoes</span><span class="pairing-plus">+</span><span>🌿 Basil</span></div>
+        <p>Basil is said to repel aphids, whiteflies, and spider mites while potentially improving tomato flavor. Both thrive in identical conditions and make great harvest partners too.</p>
+        <span class="benefit-tag">Pest repellent</span>
+      </div>
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🥕 Carrots</span><span class="pairing-plus">+</span><span>🧅 Onions</span></div>
+        <p>Carrot fly is repelled by the smell of onions, and onion fly is deterred by carrots. Interplanting confuses pests that target large monoculture blocks of a single crop.</p>
+        <span class="benefit-tag">Mutual pest deterrence</span>
+      </div>
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🥒 Cucumbers</span><span class="pairing-plus">+</span><span>🌸 Nasturtiums</span></div>
+        <p>Nasturtiums act as a sacrificial trap crop, luring aphids away from cucumbers. Their bright flowers also attract predatory insects that help control pest populations.</p>
+        <span class="benefit-tag">Trap crop</span>
+      </div>
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🍓 Strawberries</span><span class="pairing-plus">+</span><span>🧄 Garlic</span></div>
+        <p>Garlic planted around strawberry beds deters aphids, spider mites, and certain fungal diseases. It's low-growing enough not to compete for light, and you get two harvests from one bed.</p>
+        <span class="benefit-tag">Disease protection</span>
+      </div>
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🫑 Peppers</span><span class="pairing-plus">+</span><span>🌼 Marigolds</span></div>
+        <p>French marigolds release a chemical from their roots that suppresses certain nematodes in the soil. Above ground, their scent confuses and deters many common garden pests.</p>
+        <span class="benefit-tag">Root & pest protection</span>
+      </div>
+      <div class="companion-card reveal">
+        <div class="pairing"><span>🥦 Brassicas</span><span class="pairing-plus">+</span><span>🌿 Dill</span></div>
+        <p>Dill attracts beneficial wasps that parasitize cabbage worms, one of the brassica family's worst enemies. Let some plants flower fully for maximum effect.</p>
+        <span class="benefit-tag">Beneficial insect habitat</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CALENDAR ══ -->
+<section id="calendar" class="calendar-section">
+  <div class="page-wrap">
+    <span class="section-label reveal">Month by Month</span>
+    <h2 class="section-title reveal">Your Summer <em>Planting Calendar</em></h2>
+    <p class="section-intro reveal">A rough guide to what to do when. Adjust a week or two either direction based on your local last frost date and climate zone.</p>
+    <div class="month-grid">
+      <div class="month-card reveal">
+        <div class="month-header"><h3>June</h3><span>Early Summer</span></div>
+        <div class="month-body">
+          <div class="month-task"><div class="task-dot green"></div>Finish transplanting warm-season crops (tomatoes, peppers, eggplant)</div>
+          <div class="month-task"><div class="task-dot green"></div>Direct sow beans, squash, and cucumbers if not yet done</div>
+          <div class="month-task"><div class="task-dot"></div>Succession-sow lettuce in a cool, shady spot</div>
+          <div class="month-task"><div class="task-dot red"></div>Watch for first signs of aphids and hornworms</div>
+          <div class="month-task"><div class="task-dot green"></div>Apply the first layer of summer mulch to all beds</div>
+        </div>
+      </div>
+      <div class="month-card reveal">
+        <div class="month-header"><h3>July</h3><span>Peak Summer</span></div>
+        <div class="month-body">
+          <div class="month-task"><div class="task-dot red"></div>Harvest frequently — zucchini especially, every 2–3 days</div>
+          <div class="month-task"><div class="task-dot"></div>Water deeply during heat waves; check containers daily</div>
+          <div class="month-task"><div class="task-dot green"></div>Feed heavy feeders with balanced fertilizer mid-month</div>
+          <div class="month-task"><div class="task-dot red"></div>Scout for squash vine borers and cucumber beetles</div>
+          <div class="month-task"><div class="task-dot"></div>Prune suckers on indeterminate tomatoes for larger fruit</div>
+        </div>
+      </div>
+      <div class="month-card reveal">
+        <div class="month-header"><h3>August</h3><span>Late Summer</span></div>
+        <div class="month-body">
+          <div class="month-task"><div class="task-dot red"></div>Pick tomatoes, peppers, and melons at peak ripeness</div>
+          <div class="month-task"><div class="task-dot green"></div>Start broccoli, kale, and spinach seeds for fall</div>
+          <div class="month-task"><div class="task-dot"></div>Reduce water on garlic and onions to begin curing</div>
+          <div class="month-task"><div class="task-dot green"></div>Sow quick crops direct: radishes, arugula, cilantro</div>
+          <div class="month-task"><div class="task-dot"></div>Mark plants you'd like to save seeds from</div>
+        </div>
+      </div>
+      <div class="month-card reveal">
+        <div class="month-header alt"><h3>September</h3><span>Transition</span></div>
+        <div class="month-body">
+          <div class="month-task"><div class="task-dot red"></div>Pull spent crops as they finish; compost healthy material</div>
+          <div class="month-task"><div class="task-dot green"></div>Transplant fall brassica seedlings into cleared beds</div>
+          <div class="month-task"><div class="task-dot"></div>Harvest and dry herbs for winter storage</div>
+          <div class="month-task"><div class="task-dot green"></div>Plant garlic and shallots in late September for next year</div>
+          <div class="month-task"><div class="task-dot"></div>Top-dress beds with compost to restore what summer took</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TROUBLESHOOTING ══ -->
+<section id="troubleshoot">
+  <div class="page-wrap">
+    <span class="section-label reveal">When Things Go Wrong</span>
+    <h2 class="section-title reveal">Quick <em>Troubleshooting</em></h2>
+    <p class="section-intro reveal">Even experienced gardeners run into these every year. Here's what's usually behind the most common summer problems.</p>
+    <div class="trouble-grid">
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🍅 Tomatoes have black, sunken spots on the bottom</div>
+        <div class="trouble-a">This is <strong>blossom end rot</strong>. It looks like a calcium deficiency but is almost always caused by inconsistent watering, which prevents the plant from moving calcium to the fruit. Fix the watering schedule before reaching for calcium supplements.</div>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🎃 Lots of flowers, but no fruit forming</div>
+        <div class="trouble-a">Most likely a <strong>pollination problem</strong>, common in squash and cucumbers. Check for both male and female flowers (females have a small bulge at the base) and consider hand-pollinating with a small brush, especially early in the season before pollinators are active.</div>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🌿 Leaves are yellowing from the bottom up</div>
+        <div class="trouble-a">Often a sign of <strong>overwatering</strong> or nitrogen moving to support new growth at the plant's expense. Check soil moisture first — if it's consistently wet, ease off watering before assuming a nutrient problem.</div>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🥒 Plants wilt badly in the afternoon but look fine in the morning</div>
+        <div class="trouble-a">This is usually <strong>normal heat response</strong>, not a watering problem — plants lose water faster than roots can replace it during peak heat. Worry only if they haven't recovered by the next morning.</div>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🌽 Corn ears are missing kernels or only partly filled</div>
+        <div class="trouble-a">Almost always <strong>poor pollination</strong> from planting in rows instead of blocks. Corn is wind-pollinated, and a block of at least 4×4 plants ensures pollen reaches every ear's silks.</div>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="trouble-q">🍓 Strawberries are producing lots of leaves but little fruit</div>
+        <div class="trouble-a">Usually too much <strong>nitrogen</strong>. Cut back on high-nitrogen fertilizer and switch to a bloom-boosting feed with more phosphorus and potassium relative to nitrogen.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ HARVEST & STORAGE ══ -->
+<section id="storage">
+  <div class="page-wrap">
+    <span class="section-label reveal">After the Harvest</span>
+    <h2 class="section-title reveal">Storing & Preserving the <em>Bounty</em></h2>
+    <p class="section-intro reveal">Summer gardens produce in waves, and the difference between "abundance" and "waste" is often just knowing how to store what you've picked. Here's how to keep produce at its best, and what to do with the surplus.</p>
+
+    <div class="storage-grid">
+      <div class="storage-card reveal">
+        <div class="storage-icon">🍅</div>
+        <h4>Tomatoes</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Room temperature, stem-side down, out of direct sun. Never refrigerate — cold breaks down the cell walls and ruins both texture and flavor.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Roast and freeze in batches, or simmer into a basic sauce that freezes well for months.</span></div>
+      </div>
+      <div class="storage-card reveal">
+        <div class="storage-icon">🥬</div>
+        <h4>Leafy Greens</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Wash, spin dry thoroughly, and store in a breathable bag in the crisper drawer — excess moisture causes rot within days.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Blanch and freeze sturdier greens like kale and chard; delicate lettuce doesn't freeze well, so eat it fresh first.</span></div>
+      </div>
+      <div class="storage-card reveal">
+        <div class="storage-icon">🥒</div>
+        <h4>Cucumbers & Zucchini</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Refrigerate in a perforated bag; use within a week, as both lose crispness quickly.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Cucumbers are best pickled or fermented. Zucchini can be shredded and frozen for baking later in the year.</span></div>
+      </div>
+      <div class="storage-card reveal">
+        <div class="storage-icon">🫑</div>
+        <h4>Peppers</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Refrigerate unwashed in a loose bag — peppers keep well for 1–2 weeks, longer than most summer crops.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Roast, peel, and freeze, or slice raw and freeze flat on a tray for easy use in winter cooking.</span></div>
+      </div>
+      <div class="storage-card reveal">
+        <div class="storage-icon">🍓</div>
+        <h4>Berries</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Don't wash until ready to eat — moisture speeds mold. Store unwashed in the fridge in a single layer.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Freeze on a tray until solid, then transfer to a bag — they won't clump and are ready for smoothies or baking anytime.</span></div>
+      </div>
+      <div class="storage-card reveal">
+        <div class="storage-icon">🌿</div>
+        <h4>Herbs</h4>
+        <div class="storage-row"><span class="s-label">Store</span><span>Treat soft herbs (basil, cilantro) like cut flowers — stems in a jar of water on the counter, not the fridge.</span></div>
+        <div class="storage-row"><span class="s-label">Surplus</span><span>Hardy herbs (rosemary, thyme, oregano) air-dry well. Soft herbs are best frozen in oil inside an ice cube tray.</span></div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin:2.5rem 0 0.5rem;" class="reveal">Preservation Methods at a Glance</h3>
+    <p class="reveal" style="font-size:0.9rem; color:var(--muted); max-width:660px; margin-bottom:0.5rem;">If a single crop is suddenly producing more than you can eat fresh, here's how the main preservation methods compare.</p>
+    <div class="table-scroll">
+    <table class="preserve-table reveal">
+      <thead><tr><th>Method</th><th>Best For</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Freezing</td><td>Beans, corn, greens, peppers, tomato sauce</td><td>Easiest entry point — most vegetables benefit from a quick blanch first to preserve color and texture.</td></tr>
+        <tr><td>Water-Bath Canning</td><td>Tomatoes, pickles, jams, high-acid foods</td><td>Requires acidity for food safety; follow tested recipes rather than improvising ratios.</td></tr>
+        <tr><td>Pressure Canning</td><td>Low-acid vegetables like beans and carrots</td><td>Necessary for safety with low-acid foods — a water bath alone isn't hot enough to be safe for these.</td></tr>
+        <tr><td>Drying / Dehydrating</td><td>Herbs, tomatoes, peppers, fruit</td><td>A countertop dehydrator or low oven works; great for small, irregular surpluses over time.</td></tr>
+        <tr><td>Fermenting</td><td>Cucumbers, beans, peppers, cabbage</td><td>Just salt, water, and time — minimal equipment needed and adds probiotic benefits.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RECOMMENDED GEAR ══ -->
+
+<section id="gear">
+  <div class="page-wrap">
+    <span class="section-label reveal">Recommendations</span>
+    <h2 class="section-title reveal">Tools & Varieties Worth <em>Having</em></h2>
+    <p class="section-intro reveal">You don't need a shed full of gadgets to grow great food, but a handful of well-chosen tools and the right varieties make summer gardening dramatically easier. Here's what actually earns its keep.</p>
+
+    <span class="gear-tier-label reveal">Worth Buying First</span>
+    <div class="gear-grid" data-suffix="gardening tool">
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-must">Essential</span>
+        <div class="gear-icon">✂️</div>
+        <h4>Sharp Hand Pruners</h4>
+        <p>For pruning tomato suckers, harvesting, and cutting back spent plants.</p>
+        <div class="gear-why">Clean cuts heal faster and reduce disease spread — <strong>the single most-used tool</strong> in a summer garden.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-must">Essential</span>
+        <div class="gear-icon">💧</div>
+        <h4>Soaker Hose or Drip Line</h4>
+        <p>Snake along bed rows under mulch for slow, deep watering at the roots.</p>
+        <div class="gear-why">Cuts water use roughly in half and <strong>prevents the fungal issues</strong> that come from wetting foliage.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-must">Essential</span>
+        <div class="gear-icon">🌡️</div>
+        <h4>Soil Thermometer</h4>
+        <p>Cheap and simple — tells you exactly when soil has warmed enough for heat-lovers.</p>
+        <div class="gear-why">Planting peppers and melons too early into cold soil <strong>stunts them for the whole season</strong>; this removes the guesswork.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-must">Essential</span>
+        <div class="gear-icon">🧪</div>
+        <h4>Basic Soil Test Kit</h4>
+        <p>Tests pH and major nutrients (N-P-K) in minutes.</p>
+        <div class="gear-why">Most "mystery" plant problems trace back to pH — <strong>know your starting point</strong> before adding amendments blindly.</div>
+      </div>
+    </div>
+
+    <span class="gear-tier-label reveal">Worth Adding Once Established</span>
+    <div class="gear-grid" data-suffix="gardening tool">
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-nice">Upgrade</span>
+        <div class="gear-icon">🪴</div>
+        <h4>Tomato Cages or Cattle Panel Trellis</h4>
+        <p>Stronger and taller than standard cages — supports indeterminate tomatoes all season.</p>
+        <div class="gear-why">Standard wire cages are <strong>too short</strong> for vigorous tomatoes by August; a 6 ft+ panel trellis solves it for years.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-nice">Upgrade</span>
+        <div class="gear-icon">🛡️</div>
+        <h4>Floating Row Cover</h4>
+        <p>Lightweight fabric that blocks pests while letting light, water, and air through.</p>
+        <div class="gear-why">Single best defense against <strong>squash vine borers and cucumber beetles</strong> — remove once flowering starts for pollination.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-nice">Upgrade</span>
+        <div class="gear-icon">⏱️</div>
+        <h4>Hose-End Timer</h4>
+        <p>Automates watering on a schedule, even with manual hoses.</p>
+        <div class="gear-why">Consistency is everything for blossom end rot and bitter cucumbers — <strong>removes human forgetfulness</strong> from the equation.</div>
+      </div>
+      <div class="gear-card reveal">
+        <span class="gear-priority priority-nice">Upgrade</span>
+        <div class="gear-icon">🧰</div>
+        <h4>Compost Tumbler or Bin</h4>
+        <p>Contained composting that's easier to turn and keeps pests out.</p>
+        <div class="gear-why">A tumbler makes the "<strong>turn every 1–2 weeks</strong>" step from the soil section actually happen — open piles often don't get turned.</div>
+      </div>
+    </div>
+
+    <span class="gear-tier-label reveal">Reliable Varieties to Look For</span>
+    <p class="section-intro reveal" style="margin-bottom:1.5rem; max-width: 700px;">Variety names to search for at nurseries or seed catalogs — chosen for being productive, disease-resistant, and forgiving for less-than-perfect conditions.</p>
+    <div class="variety-grid" data-suffix="seeds">
+      <div class="variety-card reveal">
+        <div class="variety-crop">Tomato</div>
+        <h4>'Celebrity' or 'Better Boy'</h4>
+        <p>Disease-resistant determinate/semi-determinate types that produce reliably even in an average season — a forgiving choice for beginners.</p>
+      </div>
+      <div class="variety-card reveal">
+        <div class="variety-crop">Cucumber</div>
+        <h4>'Marketmore 76'</h4>
+        <p>Strong disease resistance and consistent straight fruit, even when conditions aren't perfect. A long-time standard for good reason.</p>
+      </div>
+      <div class="variety-card reveal">
+        <div class="variety-crop">Zucchini</div>
+        <h4>'Costata Romanesco'</h4>
+        <p>Slightly more vigorous and flavorful than standard green zucchini, with ribbed skin that holds up well even when fruit gets a little large.</p>
+      </div>
+      <div class="variety-card reveal">
+        <div class="variety-crop">Pepper</div>
+        <h4>'California Wonder'</h4>
+        <p>The classic bell pepper — widely available, productive, and a dependable baseline for comparing other varieties against.</p>
+      </div>
+      <div class="variety-card reveal">
+        <div class="variety-crop">Bean</div>
+        <h4>'Provider'</h4>
+        <p>An exceptionally reliable bush bean that germinates well even in cooler soil and produces early and consistently.</p>
+      </div>
+      <div class="variety-card reveal">
+        <div class="variety-crop">Squash</div>
+        <h4>'Tromboncino'</h4>
+        <p>A vining summer squash that's far more resistant to squash vine borer than standard zucchini, with a nutty flavor when harvested young.</p>
+      </div>
+    </div>
+
+    <span class="gear-tier-label reveal">Recommended Reading</span>
+    <div class="reading-grid" data-suffix="book">
+      <div class="reading-card reveal">
+        <div class="reading-author">Brian Brigantti</div>
+        <h4>Gardening for Abundance</h4>
+        <p>A grounding read on soil health, composting, companion planting, and the seasonal philosophy behind growing more food with less effort.</p>
+      </div>
+      <div class="reading-card reveal">
+        <div class="reading-author">Steve Solomon</div>
+        <h4>Gardening When It Counts</h4>
+        <p>Focused on growing reliably with minimal inputs — especially useful if water or fertilizer access is a constraint in your area.</p>
+      </div>
+      <div class="reading-card reveal">
+        <div class="reading-author">Jean-Martin Fortier</div>
+        <h4>The Market Gardener</h4>
+        <p>Written for small-scale growers, but the bed-planning and succession-planting principles scale down beautifully to a backyard plot.</p>
+      </div>
+    </div>
+
+    <span class="gear-tier-label reveal">Plants That Bring in Pollinators</span>
+    <p class="section-intro reveal" style="margin-bottom:1rem; max-width:700px;">More pollinator visits mean better fruit set on squash, cucumbers, melons, and beans. Tucking a few of these into open corners or along borders pays off across the whole garden.</p>
+    <div class="pollinator-strip reveal">
+      <span class="pollinator-chip">🌻 Sunflowers</span>
+      <span class="pollinator-chip">🌸 Borage</span>
+      <span class="pollinator-chip">🌼 Zinnias</span>
+      <span class="pollinator-chip">🪻 Lavender</span>
+      <span class="pollinator-chip">🌺 Cosmos</span>
+      <span class="pollinator-chip">🌿 Bee balm</span>
+      <span class="pollinator-chip">🌼 Calendula</span>
+      <span class="pollinator-chip">🌸 Alyssum</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHERE TO BUY & SAVE ══ -->
+<section id="buying">
+  <div class="page-wrap">
+    <span class="section-label reveal">Shopping Smart</span>
+    <h2 class="section-title reveal">Where to Buy Seeds & <em>Tools for Less</em></h2>
+    <p class="section-intro reveal">Prices shift constantly by season and region, so rather than chase specific numbers, here's how the main sources compare and where each one tends to win — plus realistic price ranges to help you spot a good deal versus a markup.</p>
+
+    <div class="source-grid" data-suffix="near me">
+      <div class="source-card reveal">
+        <div class="source-icon">🏠</div>
+        <h4>Big Box / Home Improvement Stores</h4>
+        <p>Wide availability of basic tools, soil, and seed racks. Convenient, but seed selection skews toward common hybrid varieties and tools toward mid-grade quality.</p>
+        <div class="source-best"><strong>Best for:</strong> Basic tools (pruners, trowels), bagged soil and compost, and end-of-season clearance on tools and raised bed kits.</div>
+      </div>
+      <div class="source-card reveal">
+        <div class="source-icon">🌱</div>
+        <h4>Local Independent Nurseries</h4>
+        <p>Often pricier per item, but stock varieties suited to your specific climate and can offer advice no online retailer can. Transplants are usually healthier and better acclimated.</p>
+        <div class="source-best"><strong>Best for:</strong> Transplants (tomatoes, peppers), perennial fruit (blueberries, raspberries), and locally-adapted variety advice.</div>
+      </div>
+      <div class="source-card reveal">
+        <div class="source-icon">📦</div>
+        <h4>Online Seed Companies</h4>
+        <p>Best selection by far for unusual or heirloom varieties, often at lower per-seed cost than racks in stores. Shipping costs can offset savings on small orders.</p>
+        <div class="source-best"><strong>Best for:</strong> Heirloom and specialty varieties, bulk seed for succession planting, and seed-starting supplies.</div>
+      </div>
+      <div class="source-card reveal">
+        <div class="source-icon">🔄</div>
+        <h4>Seed Libraries & Swaps</h4>
+        <p>Many libraries, community gardens, and local Facebook groups run seed swaps — often completely free, and seeds tend to be regionally adapted already.</p>
+        <div class="source-best"><strong>Best for:</strong> Zero-cost seeds, rare local varieties, and building a community of fellow gardeners.</div>
+      </div>
+      <div class="source-card reveal">
+        <div class="source-icon">🛒</div>
+        <h4>Marketplace / Secondhand</h4>
+        <p>Facebook Marketplace, Craigslist, and yard sales are reliable sources for durable tools (forks, shovels, wheelbarrows) at a fraction of retail — quality often beats new budget tools.</p>
+        <div class="source-best"><strong>Best for:</strong> Durable hand tools, wheelbarrows, tomato cages, and large equipment like tillers.</div>
+      </div>
+      <div class="source-card reveal">
+        <div class="source-icon">🏪</div>
+        <h4>Dollar Stores & Discount Chains</h4>
+        <p>Surprisingly solid for small consumables — plant tags, twine, small pots, and basic seed packets of common annuals at low cost, though selection is limited.</p>
+        <div class="source-best"><strong>Best for:</strong> Cheap seed-starting pots, twine, labels, and common flower/herb seed packets.</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin:2.5rem 0 0.5rem;" class="reveal">Typical Price Ranges</h3>
+    <p class="reveal" style="font-size:0.9rem; color:var(--muted); max-width:660px;">Rough ranges to help you sanity-check what you're being asked to pay. Actual prices vary by brand, region, and season — always worth a quick price comparison before buying.</p>
+    <div class="table-scroll">
+    <table class="price-table reveal">
+      <thead><tr><th>Item</th><th>Typical Range</th><th>Bargain Sign</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Vegetable seed packet</td><td>$2 – $5</td><td>Under $2 / multi-packs</td><td>Price often reflects seed count, not quality — check seeds-per-packet before comparing.</td></tr>
+        <tr><td>Tomato/pepper transplant</td><td>$3 – $6</td><td>End-of-season 50% off</td><td>Buying small 4-packs and growing on is usually cheaper than individual large pots.</td></tr>
+        <tr><td>Blueberry/raspberry plant</td><td>$10 – $25</td><td>Bare-root in early spring</td><td>Bare-root plants (no soil, dormant) are far cheaper than potted and establish just as well.</td></tr>
+        <tr><td>Hand pruners</td><td>$8 – $25</td><td>$10–15 mid-range</td><td>Replaceable blades extend life — often cheaper long-term than a pricier "lifetime" pair.</td></tr>
+        <tr><td>Soaker hose (25 ft)</td><td>$10 – $20</td><td>End-of-season clearance</td><td>Rubber holds up better than vinyl but costs more upfront.</td></tr>
+        <tr><td>Compost (40 lb bag)</td><td>$4 – $10</td><td>Municipal compost programs</td><td>Many cities sell or give away compost/mulch from yard waste programs at a steep discount.</td></tr>
+        <tr><td>Raised bed kit (4×8)</td><td>$60 – $150</td><td>DIY from reclaimed lumber</td><td>Untreated cedar boards from a lumber yard often cost less than a packaged kit of the same size.</td></tr>
+        <tr><td>Soil test kit</td><td>$10 – $20</td><td>Free via county extension office</td><td>Many local agricultural extension offices offer free or low-cost soil testing — worth checking first.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 style="font-family:'Fraunces',serif; font-size:1.25rem; color:var(--soil); margin:2.5rem 0 1rem;" class="reveal">Ways to Cut Costs Further</h3>
+    <div class="save-grid">
+      <div class="save-card reveal">
+        <div class="save-icon">🌿</div>
+        <h4>Save Your Own Seed</h4>
+        <p>Tomatoes, beans, and peppers are easy to seed-save from open-pollinated varieties — one good harvest can supply seeds for years.</p>
+      </div>
+      <div class="save-card reveal">
+        <div class="save-icon">✂️</div>
+        <h4>Propagate from Cuttings</h4>
+        <p>Tomatoes root readily from suckers in water, and herbs like basil and mint propagate easily — turn one plant into several for free.</p>
+      </div>
+      <div class="save-card reveal">
+        <div class="save-icon">🤝</div>
+        <h4>Split Bulk Orders</h4>
+        <p>Seed packets and soil amendments often come in quantities far beyond what one small garden needs — splitting with a neighbor cuts cost per person significantly.</p>
+      </div>
+      <div class="save-card reveal">
+        <div class="save-icon">🗑️</div>
+        <h4>Use Free Organic Matter</h4>
+        <p>Fallen leaves, grass clippings, and coffee shop spent grounds are often free for the taking and make excellent compost inputs or mulch.</p>
+      </div>
+    </div>
+
+    <p class="price-note reveal">Note: prices above are general estimates as of mid-2026 and will vary by location, season, and retailer — always compare a couple of sources before a larger purchase.</p>
+  </div>
+</section>
+
+<!-- ══ APPS & TOOLS ══ -->
+<section id="apps">
+  <div class="page-wrap">
+    <span class="section-label reveal">Digital Helpers</span>
+    <h2 class="section-title reveal">Recommended <em>Apps & Tools</em></h2>
+    <p class="section-intro reveal">A garden journal, a plant ID app, or a planning spreadsheet won't grow anything for you — but they catch problems earlier, keep your layout organized year to year, and turn "what did I plant here again?" into a quick lookup. Switch between mobile and computer picks below.</p>
+
+    <div class="platform-tabs reveal">
+      <button class="platform-tab active" data-platform="mobile">📱 Mobile / On the Go</button>
+      <button class="platform-tab" data-platform="desktop">💻 Computer / Planning</button>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="platform-panel active" id="platform-mobile">
+      <div class="app-grid" data-suffix="app">
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free tier</span>
+          <div class="app-icon">📷</div>
+          <h4>Plant Identification Apps</h4>
+          <p>Snap a photo of an unfamiliar seedling, weed, or pest to get a likely identification in seconds.</p>
+          <div class="app-use"><strong>Best for:</strong> Catching weeds early before they establish, and identifying volunteer plants that sprout from compost.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🐛</div>
+          <h4>Pest & Disease Diagnosis Apps</h4>
+          <p>Photo-based tools that compare leaf damage or spotting against a database of common garden problems.</p>
+          <div class="app-use"><strong>Best for:</strong> Cross-checking symptoms against the pest table on this page when something looks off but you're not sure what it is.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🌦️</div>
+          <h4>Hyperlocal Weather Apps</h4>
+          <p>Weather apps with minute-by-minute precipitation radar and frost alerts, more precise than generic forecasts.</p>
+          <div class="app-use"><strong>Best for:</strong> Timing watering around real rain (not just a forecast), and getting ahead of late frost warnings in spring.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">⏰</div>
+          <h4>Reminder / To-Do Apps</h4>
+          <p>Whatever reminder app is already on your phone — set recurring alerts for watering, feeding, and succession sowing.</p>
+          <div class="app-use"><strong>Best for:</strong> The "succession sow every 2 weeks" tasks from the calendar section, which are easy to forget without a nudge.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">📓</div>
+          <h4>Garden Journal Apps</h4>
+          <p>Log planting dates, harvest amounts, and photos over time to build a record specific to your garden.</p>
+          <div class="app-use"><strong>Best for:</strong> Spotting patterns year over year — like which tomato variety actually performed best in your soil and climate.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">📏</div>
+          <h4>AR Measuring Apps</h4>
+          <p>Built-in phone tools that use the camera to measure distances — handy for laying out beds without a tape measure.</p>
+          <div class="app-use"><strong>Best for:</strong> Quickly checking spacing against the layout plans earlier on this page (e.g. confirming a 4 ft squash spread).</div>
+        </div>
+      </div>
+
+      <span class="gear-tier-label reveal" style="margin-top:2.5rem;">Popular Named Apps Worth Trying</span>
+      <p class="section-intro reveal" style="margin-bottom:1.5rem; max-width:700px;">If you'd rather start from specific apps than categories, these are well-known names gardeners commonly reach for. Search results will show current ratings, pricing, and whether they're available for your phone.</p>
+      <div class="app-grid" data-suffix="app">
+        <div class="app-card reveal">
+          <span class="app-cost cost-paid">Freemium</span>
+          <div class="app-icon">🔍</div>
+          <h4>PictureThis</h4>
+          <p>One of the most widely used plant identification apps — point your camera at a plant, weed, or pest for an instant ID and care tips.</p>
+          <div class="app-use"><strong>Good for:</strong> Quick identification of mystery seedlings and common garden weeds.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🌎</div>
+          <h4>PlantNet</h4>
+          <p>A community-driven plant ID app built with botanists and research institutes — strong for wild plants and weeds, not just garden varieties.</p>
+          <div class="app-use"><strong>Good for:</strong> A free alternative to paid ID apps, especially for identifying weeds and wild volunteers.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🦋</div>
+          <h4>iNaturalist</h4>
+          <p>Photograph and log any plant, insect, or animal you find in the garden — the community and AI help identify it, building a record over time.</p>
+          <div class="app-use"><strong>Good for:</strong> Identifying garden insects (good or bad) and tracking what's visiting your pollinator plants.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-paid">Freemium</span>
+          <div class="app-icon">🪴</div>
+          <h4>Planta</h4>
+          <p>A plant care app with watering and feeding reminders tailored to specific plant species and your local light and climate conditions.</p>
+          <div class="app-use"><strong>Good for:</strong> Container and patio gardeners who want reminders tuned to specific plants rather than generic schedules.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-paid">Freemium</span>
+          <div class="app-icon">📅</div>
+          <h4>From Seed to Spoon</h4>
+          <p>A garden planning and to-do app that generates a personalized task calendar based on your crops and frost dates.</p>
+          <div class="app-use"><strong>Good for:</strong> Turning the planting calendar on this page into a personalized, date-specific task list.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">📓</div>
+          <h4>Gardenize</h4>
+          <p>A photo-based garden journal app for logging plantings, tasks, and harvests by bed, with year-over-year comparison.</p>
+          <div class="app-use"><strong>Good for:</strong> Keeping the kind of season-to-season notes that help refine your layout and variety choices over time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div class="platform-panel" id="platform-desktop">
+      <div class="app-grid" data-suffix="website tool">
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🗺️</div>
+          <h4>Garden Planner / Layout Tools</h4>
+          <p>Drag-and-drop web tools for mapping out beds to scale, with built-in plant spacing guides.</p>
+          <div class="app-use"><strong>Best for:</strong> Sketching out a version of the layout plans on this page sized to your actual yard before committing seeds to soil.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">📊</div>
+          <h4>Spreadsheets</h4>
+          <p>A simple spreadsheet remains one of the most flexible tools for tracking what's planted where, succession sowing dates, and harvest totals.</p>
+          <div class="app-use"><strong>Best for:</strong> Building your own rotation tracker so the same crop family doesn't go in the same bed two years running.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🌡️</div>
+          <h4>Frost Date Lookup Tools</h4>
+          <p>Web tools that estimate average last and first frost dates based on your location.</p>
+          <div class="app-use"><strong>Best for:</strong> Anchoring the entire calendar section on this page to your specific climate, since "June" varies a lot by region.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🏛️</div>
+          <h4>Local Extension Office Websites</h4>
+          <p>University/county agricultural extension sites publish region-specific planting calendars, pest alerts, and free publications.</p>
+          <div class="app-use"><strong>Best for:</strong> The single best free source for advice calibrated to your exact climate zone and common local pest pressures.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🧮</div>
+          <h4>Square-Foot / Yield Calculators</h4>
+          <p>Online calculators that estimate how much of a crop to plant based on household size and desired harvest.</p>
+          <div class="app-use"><strong>Best for:</strong> Avoiding the classic "six zucchini plants for a family of four" mistake before it happens.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">💬</div>
+          <h4>Local Gardening Forums & Groups</h4>
+          <p>Region-specific forums, subreddits, and community groups where other local gardeners share what's working this season.</p>
+          <div class="app-use"><strong>Best for:</strong> Real-time, local advice — especially useful for unusual weather years when generic guides fall short.</div>
+        </div>
+      </div>
+
+      <span class="gear-tier-label reveal" style="margin-top:2.5rem;">Popular Named Tools Worth Trying</span>
+      <p class="section-intro reveal" style="margin-bottom:1.5rem; max-width:700px;">Specific web-based tools gardeners often rely on for planning and tracking.</p>
+      <div class="app-grid" data-suffix="website">
+        <div class="app-card reveal">
+          <span class="app-cost cost-paid">Freemium</span>
+          <div class="app-icon">🗺️</div>
+          <h4>GrowVeg Garden Planner</h4>
+          <p>A drag-and-drop online garden planner with a large plant database, crop rotation tracking, and printable layouts.</p>
+          <div class="app-use"><strong>Good for:</strong> Mapping out the raised bed and Three Sisters layouts from this page to scale for your actual yard.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">🌱</div>
+          <h4>Seedtime</h4>
+          <p>A garden planning tool that builds a personalized planting calendar based on your location's frost dates and chosen crops.</p>
+          <div class="app-use"><strong>Good for:</strong> Converting the month-by-month calendar on this page into exact dates for your area.</div>
+        </div>
+        <div class="app-card reveal">
+          <span class="app-cost cost-free">Free</span>
+          <div class="app-icon">📋</div>
+          <h4>Notion or Google Sheets Templates</h4>
+          <p>Free community-made garden planning templates for tracking beds, varieties, and harvest logs in tools you likely already use.</p>
+          <div class="app-use"><strong>Good for:</strong> A no-cost, fully customizable alternative to dedicated garden-planning apps.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+
+
+<footer>
+  <div class="footer-logo">The Summer Garden</div>
+  <p>A practical field guide to planning, planting, and tending fruit and vegetables through the most generous season of the year. Happy growing. 🌿</p>
+</footer>
+
+<script>
+  // Layout tabs
+  const tabs = document.querySelectorAll('.layout-tab');
+  const panels = document.querySelectorAll('.layout-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // Platform tabs (apps & tools)
+  const platformTabs = document.querySelectorAll('.platform-tab');
+  const platformPanels = document.querySelectorAll('.platform-panel');
+  platformTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      platformTabs.forEach(t => t.classList.remove('active'));
+      platformPanels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('platform-' + tab.dataset.platform).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 50);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Close mobile nav after tapping a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+      document.querySelector('.nav-toggle').classList.remove('open');
+    });
+  });
+
+  // Add "Search Google" links to recommendation cards
+  document.querySelectorAll('.app-card, .gear-card, .variety-card, .reading-card, .source-card').forEach(card => {
+    const h4 = card.querySelector('h4');
+    if (!h4) return;
+    const container = card.closest('[data-suffix]');
+    const suffix = container ? container.dataset.suffix : '';
+    const title = h4.textContent.trim().replace(/['"]/g, '');
+    let extra = '';
+    const author = card.querySelector('.reading-author');
+    if (author) extra = ' ' + author.textContent.trim();
+    const query = encodeURIComponent((title + extra + ' ' + suffix).trim());
+    const link = document.createElement('a');
+    link.href = 'https://www.google.com/search?q=' + query;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.className = 'search-link';
+    link.textContent = '🔍 Search Google';
+    card.appendChild(link);
+  });
+</script>
+</body>
+</html>
